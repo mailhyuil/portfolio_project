@@ -47,4 +47,28 @@ public class AdminController {
         workService.saveWork(work, files, designer_name, client_name, client_link, collaborator_name, collaborator_link, collaborator_job);
         return "redirect:/admin";
     }
+
+    @GetMapping("/delete")
+    public String delete(long id){
+        workService.deleteWork(id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/update")
+    public String update(long id, Model model){
+        model.addAttribute("work", workService.getWorkById(id));
+        return "/admin/update";
+    }
+
+    @PostMapping("/update")
+    public String update(Work work, MultipartHttpServletRequest files,
+                         String[] designer_name,
+                         String[] client_name,
+                         String[] client_link,
+                         String[] collaborator_name,
+                         String[] collaborator_link,
+                         String[] collaborator_job){
+        workService.updateWork(work, files, designer_name, client_name, client_link, collaborator_name, collaborator_link, collaborator_job);
+        return "redirect:/admin";
+    }
 }

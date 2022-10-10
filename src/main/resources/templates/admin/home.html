@@ -10,11 +10,15 @@
     <thead>
         <tr>
             <th>title</th>
+            <th>delete</th>
+            <th>update</th>
         </tr>
     </thead>
     <tbody>
         <tr th:each="work:${works}">
             <td th:text="${work.title}"></td>
+            <td><a th:href="|@{/admin/delete}?id=${work.id}|">delete</a></td>
+            <td><a th:href="|@{/admin/update}?id=${work.id}|">update</a></td>
         </tr>
     </tbody>
 </table>

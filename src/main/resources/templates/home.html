@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css?asdsfsfdfff">
 </head>
 <body>
-<h1>안녕하세요</h1>
+<header class="flex">
+    <h1 class="text-blue-500 font-bold text-3xl">SooSan Yoo</h1>
+</header>
+<main class="flex ">
+    <div class="cursor-pointer" th:each="work:${works}" th:onclick="|location.href='@{/detail}?id=${work.id}'|">
+        <img class="w-80"
+             th:if="${not #lists.isEmpty(work.imageList)}"
+             th:src="|@{/upload/}${work.imageList.get(0).uuidName}|">
+        <h1 th:text="${work.title}">title</h1>
+    </div>
+</main>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+    <link rel="stylesheet" href="/css/style.css?asdfddfff">
+</head>
+<body>
+<h1 th:text="${work.title}">title</h1>
+<div th:each="designer:${work.designerList}">
+    <h1 th:text="${designer.name}">designer</h1>
+</div>
+<div th:each="client:${work.clientList}">
+    <h1 th:text="${client.name}">client</h1>
+</div>
+<div th:each="collaborator:${work.collaboratorList}">
+    <h1 th:text="${collaborator.name}">collaborator</h1>
+</div>
+
+<h1 th:text="${work.content}">content</h1>
+
+<div class="flex justify-center" th:each="image:${work.imageList}">
+    <img th:src="|@{/upload/}${image.uuidName}|">
+</div>
+</body>
+</html>

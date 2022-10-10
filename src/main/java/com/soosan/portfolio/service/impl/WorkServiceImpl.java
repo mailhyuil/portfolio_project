@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,14 +42,12 @@ public class WorkServiceImpl implements WorkService {
                          String[] collaborator_job) {
         List<MultipartFile> imgList = files.getFiles("files");
 
-        List<Image> imgs = new ArrayList<>();
 
         imgList.stream().filter((item) -> {
             return !item.isEmpty();
         }).map((img) -> {
             return createImageFile(img, work);
         }).forEach((vo) -> {
-            imgs.add(vo);
             imageRepository.save(vo);
             work.getImageList().add(vo);
         });
@@ -71,6 +68,81 @@ public class WorkServiceImpl implements WorkService {
         }
 
         workRepository.save(work);
+    }
+
+    @Override
+    public void updateWork(Work work, MultipartHttpServletRequest files,
+                           String[] designer_name,
+                           String[] client_name,
+                           String[] client_link, String[] collaborator_name,
+                           String[] collaborator_link,
+                           String[] collaborator_job) {
+
+        Work foundWork = workRepository.findById(work.getId()).get();
+        foundWork.setCategory(work.getCategory());
+        foundWork.setTitle(work.getTitle());
+        foundWork.setContent(work.getContent());
+
+        List<MultipartFile> imageList = files.getFiles("files");
+        System.out.println("imageList : " + imageList);
+
+        if(!imageList.get(0).isEmpty()){
+            List<Image> foundImageList = imageRepository.findByWorkId(work.getId());
+
+            for (Image image : foundImageList) {
+                File file = new File("C:/Temp/upload" + "\\" + image.getUuidName());
+                if (file.exists()) {
+                    file.delete();
+                    imageRepository.deleteById(image.getId());
+                }
+            }
+
+            imageList.stream().filter((item) -> {
+                return !item.isEmpty();
+            }).map((img) -> {
+                return createImageFile(img, work);
+            }).forEach((vo) -> {
+                imageRepository.save(vo);
+                foundWork.getImageList().add(vo);
+            });
+        }
+
+        for (int i = 0; i < designer_name.length; i++){
+            Designer foundDesigner = foundWork.getDesignerList().get(i);
+            foundDesigner.setName(designer_name[i]);
+        }
+
+        for(int i = 0; i< client_name.length; i++){
+            Client foundClient = foundWork.getClientList().get(i);
+            foundClient.setName(client_name[i]);
+            foundClient.setLink(client_link[i]);
+        }
+
+        for(int i = 0; i < collaborator_name.length; i++){
+            Collaborator foundCollaborator = foundWork.getCollaboratorList().get(i);
+            foundCollaborator.setName(collaborator_name[i]);
+            foundCollaborator.setLink(collaborator_link[i]);
+            foundCollaborator.setJob(collaborator_job[i]);
+        }
+        workRepository.save(foundWork);
+    }
+
+    @Override
+    public void deleteWork(long id) {
+        List<Image> imageList = imageRepository.findByWorkId(id);
+
+        for (Image image : imageList) {
+            File file = new File("C:/Temp/upload" + "\\" + image.getUuidName());
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        workRepository.deleteById(id);
+    }
+
+    @Override
+    public Work getWorkById(long id) {
+        return workRepository.findById(id).get();
     }
 
     private Image createImageFile(MultipartFile img, Work work) {

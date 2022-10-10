@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
 
 @Entity
@@ -22,15 +21,25 @@ public class Work {
     private String content;
     private String category;
 
-    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Designer> designerList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Client> clientList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Collaborator> collaboratorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "work", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Image> imageList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Work{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+<form th:action="@{/admin/update(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
+  <input name="id" type="text" hidden="hidden" th:value="${work.id}"/>
+  <input name="category" type="text" placeholder="카테고리" th:value="${work.category}"/>
+  <input name="title" type="text" placeholder="제목을 입력해주세요" th:value="${work.title}"/>
+  <textarea name="content" placeholder="글을 작성해주세요" th:text="${work.content}"></textarea>
+  <input name="files" type="file" accept="image/*" multiple="multiple">
+  <div th:each="designer:${work.designerList}">
+    <input name="designer_name" placeholder="designer_name" th:value="${designer.name}">
+  </div>
+  <div th:each="client:${work.clientList}">
+    <input name="client_name" placeholder="client_name" th:value="${client.name}">
+    <input name="client_link" placeholder="client_link" th:value="${client.link}">
+  </div>
+  <div th:each="collaborator:${work.collaboratorList}">
+    <input name="collaborator_name" placeholder="collaborator_name" th:value="${collaborator.name}">
+    <input name="collaborator_link" placeholder="collaborator_link" th:value="${collaborator.link}">
+    <input name="collaborator_job" placeholder="collaborator_job" th:value="${collaborator.job}">
+  </div>
+  <button>글작성</button>
+</form>
+</body>
+</html>

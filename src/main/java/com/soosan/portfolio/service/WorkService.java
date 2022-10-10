@@ -18,4 +18,14 @@ public interface WorkService {
                          String[] collaborator_name,
                          String[] collaborator_link,
                          String[] collaborator_job);
+    public void updateWork(Work work, MultipartHttpServletRequest files,
+                         String[] designer_name,
+                         String[] client_name,
+                         String[] client_link,
+                         String[] collaborator_name,
+                         String[] collaborator_link,
+                         String[] collaborator_job);
+    public void deleteWork(long id);
+
+    public Work getWorkById(long id);
 }
