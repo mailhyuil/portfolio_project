@@ -13,10 +13,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td th:each="work:${works}" th:text="${work.title}"></td>
+        <tr th:each="work:${works}">
+            <td th:text="${work.title}"></td>
         </tr>
     </tbody>
 </table>
+<a th:href="@{/admin/insert}">insert</a>
 </body>
 </html>

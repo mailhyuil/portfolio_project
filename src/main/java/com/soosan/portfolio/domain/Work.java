@@ -20,6 +20,7 @@ public class Work {
     private long id;
     private String title;
     private String content;
+    private String category;
 
     @OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
     private List<Designer> designerList = new ArrayList<>();

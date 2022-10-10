@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert</title>
+</head>
+<body>
+<form th:action="@{/admin/insert(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
+    <input name="category" type="text" placeholder="카테고리"/>
+    <input name="title" type="text" placeholder="제목을 입력해주세요"/>
+    <textarea name="content" placeholder="글을 작성해주세요"></textarea>
+    <input name="files" type="file" accept="image/*" multiple="multiple">
+    <div>
+        <input name="designer_name" placeholder="designer_name">
+    </div>
+    <div>
+        <input name="client_name" placeholder="client_name">
+        <input name="client_link" placeholder="client_link">
+    </div>
+    <div>
+        <input name="collaborator_name" placeholder="collaborator_name">
+        <input name="collaborator_link" placeholder="collaborator_link">
+        <input name="collaborator_job" placeholder="collaborator_job">
+    </div>
+    <button>글작성</button>
+</form>
+</body>
+</html>

@@ -19,6 +19,7 @@ public class Collaborator {
     private long id;
     private String name;
     private String link;
+    private String job;
 
     @ManyToOne
     @JoinColumn(name = "work_id")
