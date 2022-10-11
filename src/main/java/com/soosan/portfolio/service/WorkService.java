@@ -7,6 +7,7 @@ import com.soosan.portfolio.domain.Work;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.naming.NameNotFoundException;
 import java.util.List;
 
 public interface WorkService {
@@ -28,4 +29,5 @@ public interface WorkService {
     public void deleteWork(long id);
 
     public Work getWorkById(long id);
+    public List<Work> getWorksByKeyword(String keyword) throws NameNotFoundException;
 }

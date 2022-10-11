@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.naming.NameNotFoundException;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -143,6 +144,18 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public Work getWorkById(long id) {
         return workRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Work> getWorksByKeyword(String keyword) throws NameNotFoundException {
+        if(keyword == null){
+            return workRepository.findAll();
+        }
+        List<Work> works = workRepository.findAllByCategory(keyword);
+        if(works.isEmpty()){
+            throw new NameNotFoundException();
+        }
+        return works;
     }
 
     private Image createImageFile(MultipartFile img, Work work) {

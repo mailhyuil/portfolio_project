@@ -6,23 +6,85 @@
 </head>
 <body>
 <form th:action="@{/admin/insert(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
-    <input name="category" type="text" placeholder="카테고리"/>
-    <input name="title" type="text" placeholder="제목을 입력해주세요"/>
-    <textarea name="content" placeholder="글을 작성해주세요"></textarea>
-    <input name="files" type="file" accept="image/*" multiple="multiple">
     <div>
-        <input name="designer_name" placeholder="designer_name">
+        <select name="category">
+            <option>poster</option>
+            <option>exhibition</option>
+            <option>branding</option>
+            <option>package</option>
+        </select>
+        <input name="title" type="text" placeholder="제목을 입력해주세요"/>
     </div>
     <div>
-        <input name="client_name" placeholder="client_name">
-        <input name="client_link" placeholder="client_link">
+        <textarea name="content" placeholder="글을 작성해주세요"></textarea>
     </div>
+    <!-- designer-wrapper -->
+    <div class="designer-wrapper">
+        <div class="designer">
+            <input name="designer_name" placeholder="designer_name">
+        </div>
+    </div>
+    <button class="add-designer-btn" type="button">+</button>
+    <button class="remove-designer-btn" type="button">-</button>
+    <!-- client-wrapper -->
+    <div class="client-wrapper">
+        <div class="client">
+            <input name="client_name" placeholder="client_name">
+            <input name="client_link" placeholder="client_link">
+        </div>
+    </div>
+    <button class="add-client-btn" type="button">+</button>
+    <button class="remove-client-btn" type="button">-</button>
+    <!-- collaborator-wrapper -->
+    <div class="collaborator-wrapper">
+        <div class="collaborator">
+            <input name="collaborator_name" placeholder="collaborator_name">
+            <input name="collaborator_link" placeholder="collaborator_link">
+            <input name="collaborator_job" placeholder="collaborator_job">
+        </div>
+    </div>
+    <button class="add-collaborator-btn" type="button">+</button>
+    <button class="remove-collaborator-btn" type="button">-</button>
     <div>
-        <input name="collaborator_name" placeholder="collaborator_name">
-        <input name="collaborator_link" placeholder="collaborator_link">
-        <input name="collaborator_job" placeholder="collaborator_job">
+        <input name="files" type="file" accept="image/*" multiple="multiple">
     </div>
     <button>글작성</button>
 </form>
 </body>
+<script>
+    const client_wrapper = document.querySelector(".client-wrapper")
+    const collaborator_wrapper = document.querySelector(".collaborator-wrapper")
+    const designer_wrapper = document.querySelector(".designer-wrapper")
+
+    document.querySelector(".add-client-btn").addEventListener("click", () => {
+        const cloned_client = client_wrapper.querySelector(".client").cloneNode(true)
+        client_wrapper.appendChild(cloned_client);
+    })
+    document.querySelector(".add-collaborator-btn").addEventListener("click", () => {
+        const cloned_collaborator = collaborator_wrapper.querySelector(".collaborator").cloneNode(true)
+        collaborator_wrapper.appendChild(cloned_collaborator);
+    })
+    document.querySelector(".add-designer-btn").addEventListener("click", () => {
+        const cloned_designer = designer_wrapper.querySelector(".designer").cloneNode(true)
+        designer_wrapper.appendChild(cloned_designer);
+    })
+    document.querySelector(".remove-collaborator-btn").addEventListener("click", () => {
+        const collaborators = collaborator_wrapper.querySelectorAll(".collaborator")
+        if (collaborators.length > 1) {
+            collaborators[collaborators.length - 1].remove();
+        }
+    })
+    document.querySelector(".remove-client-btn").addEventListener("click", () => {
+        const clients = client_wrapper.querySelectorAll(".client")
+        if (clients.length > 1) {
+            clients[clients.length - 1].remove();
+        }
+    })
+    document.querySelector(".remove-designer-btn").addEventListener("click", () => {
+        const designers = designer_wrapper.querySelectorAll(".designer")
+        if (designers.length > 1) {
+            designers[designers.length - 1].remove();
+        }
+    })
+</script>
 </html>

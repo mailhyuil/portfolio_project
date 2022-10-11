@@ -5,25 +5,86 @@
     <title>update</title>
 </head>
 <body>
-<form th:action="@{/admin/update(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
-  <input name="id" type="text" hidden="hidden" th:value="${work.id}"/>
-  <input name="category" type="text" placeholder="카테고리" th:value="${work.category}"/>
-  <input name="title" type="text" placeholder="제목을 입력해주세요" th:value="${work.title}"/>
-  <textarea name="content" placeholder="글을 작성해주세요" th:text="${work.content}"></textarea>
-  <input name="files" type="file" accept="image/*" multiple="multiple">
-  <div th:each="designer:${work.designerList}">
-    <input name="designer_name" placeholder="designer_name" th:value="${designer.name}">
+<form th:action="@{/admin/insert(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
+  <div>
+    <select name="category">
+      <option th:selected="${work.category} == 'poster'">poster</option>
+      <option th:selected="${work.category} == 'exhibition'">exhibition</option>
+      <option th:selected="${work.category} == 'branding'">branding</option>
+      <option th:selected="${work.category} == 'package'">package</option>
+    </select>
+    <input name="title" type="text" placeholder="제목을 입력해주세요" th:value="${work.title}"/>
   </div>
-  <div th:each="client:${work.clientList}">
-    <input name="client_name" placeholder="client_name" th:value="${client.name}">
-    <input name="client_link" placeholder="client_link" th:value="${client.link}">
+  <div>
+    <textarea name="content" placeholder="글을 작성해주세요" th:text="${work.content}"></textarea>
   </div>
-  <div th:each="collaborator:${work.collaboratorList}">
-    <input name="collaborator_name" placeholder="collaborator_name" th:value="${collaborator.name}">
-    <input name="collaborator_link" placeholder="collaborator_link" th:value="${collaborator.link}">
-    <input name="collaborator_job" placeholder="collaborator_job" th:value="${collaborator.job}">
+  <!-- designer-wrapper -->
+  <div class="designer-wrapper">
+    <div class="designer"  th:each="designer:${work.designerList}">
+      <input name="designer_name" placeholder="designer_name" th:value="${designer.name}">
+    </div>
+  </div>
+  <button class="add-designer-btn" type="button">+</button>
+  <button class="remove-designer-btn" type="button">-</button>
+  <!-- client-wrapper -->
+  <div class="client-wrapper">
+    <div class="client"  th:each="client:${work.clientList}">
+      <input name="client_name" placeholder="client_name" th:value="${client.name}">
+      <input name="client_link" placeholder="client_link" th:value="${client.link}">
+    </div>
+  </div>
+  <button class="add-client-btn" type="button">+</button>
+  <button class="remove-client-btn" type="button">-</button>
+  <!-- collaborator-wrapper -->
+  <div class="collaborator-wrapper">
+    <div class="collaborator" th:each="collaborator:${work.collaboratorList}">
+      <input name="collaborator_name" placeholder="collaborator_name" th:value="${collaborator.name}">
+      <input name="collaborator_link" placeholder="collaborator_link" th:value="${collaborator.link}">
+      <input name="collaborator_job" placeholder="collaborator_job" th:value="${collaborator.job}">
+    </div>
+  </div>
+  <button class="add-collaborator-btn" type="button">+</button>
+  <button class="remove-collaborator-btn" type="button">-</button>
+  <div>
+    <input name="files" type="file" accept="image/*" multiple="multiple">
   </div>
   <button>글작성</button>
 </form>
 </body>
+<script>
+  const client_wrapper = document.querySelector(".client-wrapper")
+  const collaborator_wrapper = document.querySelector(".collaborator-wrapper")
+  const designer_wrapper = document.querySelector(".designer-wrapper")
+
+  document.querySelector(".add-client-btn").addEventListener("click", () => {
+    const cloned_client = client_wrapper.querySelector(".client").cloneNode(true)
+    client_wrapper.appendChild(cloned_client);
+  })
+  document.querySelector(".add-collaborator-btn").addEventListener("click", () => {
+    const cloned_collaborator = collaborator_wrapper.querySelector(".collaborator").cloneNode(true)
+    collaborator_wrapper.appendChild(cloned_collaborator);
+  })
+  document.querySelector(".add-designer-btn").addEventListener("click", () => {
+    const cloned_designer = designer_wrapper.querySelector(".designer").cloneNode(true)
+    designer_wrapper.appendChild(cloned_designer);
+  })
+  document.querySelector(".remove-collaborator-btn").addEventListener("click", () => {
+    const collaborators = collaborator_wrapper.querySelectorAll(".collaborator")
+    if (collaborators.length > 1) {
+      collaborators[collaborators.length - 1].remove();
+    }
+  })
+  document.querySelector(".remove-client-btn").addEventListener("click", () => {
+    const clients = client_wrapper.querySelectorAll(".client")
+    if (clients.length > 1) {
+      clients[clients.length - 1].remove();
+    }
+  })
+  document.querySelector(".remove-designer-btn").addEventListener("click", () => {
+    const designers = designer_wrapper.querySelectorAll(".designer")
+    if (designers.length > 1) {
+      designers[designers.length - 1].remove();
+    }
+  })
+</script>
 </html>
