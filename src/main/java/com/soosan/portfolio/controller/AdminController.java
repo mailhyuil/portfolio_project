@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("admin")
 public class AdminController {
     private final WorkService workService;
 
@@ -29,7 +29,7 @@ public class AdminController {
     @GetMapping({"", "/"})
     public String home(Model model){
         model.addAttribute("works", workService.getWorks());
-        return "/admin/home";
+        return "admin/home";
     }
     @GetMapping("/insert")
     public String insert(){
@@ -57,7 +57,7 @@ public class AdminController {
     @GetMapping("/update")
     public String update(long id, Model model){
         model.addAttribute("work", workService.getWorkById(id));
-        return "/admin/update";
+        return "admin/update";
     }
 
     @PostMapping("/update")

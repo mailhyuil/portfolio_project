@@ -5,7 +5,8 @@
     <title>update</title>
 </head>
 <body>
-<form th:action="@{/admin/insert(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
+<form th:action="@{/admin/update(${_csrf.parameterName}=${_csrf.token})}" method="post" enctype="multipart/form-data">
+  <input name="id" hidden="hidden" th:value="${work.id}">
   <div>
     <select name="category">
       <option th:selected="${work.category} == 'poster'">poster</option>

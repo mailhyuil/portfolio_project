@@ -30,6 +30,6 @@ public class HomeController {
     @GetMapping("/detail")
     public String detail(Model model, long id){
         model.addAttribute("work", workService.getWorkById(id));
-        return "/detail";
+        return "detail";
     }
 }

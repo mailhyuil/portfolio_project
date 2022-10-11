@@ -91,7 +91,7 @@ public class WorkServiceImpl implements WorkService {
             List<Image> foundImageList = imageRepository.findByWorkId(work.getId());
 
             for (Image image : foundImageList) {
-                File file = new File("C:/Temp/upload" + "\\" + image.getUuidName());
+                File file = new File("/tmp/upload" + "\\" + image.getUuidName());
                 if (file.exists()) {
                     file.delete();
                     imageRepository.deleteById(image.getId());
@@ -133,7 +133,7 @@ public class WorkServiceImpl implements WorkService {
         List<Image> imageList = imageRepository.findByWorkId(id);
 
         for (Image image : imageList) {
-            File file = new File("C:/Temp/upload" + "\\" + image.getUuidName());
+            File file = new File("/tmp/upload" + "\\" + image.getUuidName());
             if (file.exists()) {
                 file.delete();
             }
@@ -165,7 +165,7 @@ public class WorkServiceImpl implements WorkService {
         Image image = Image.builder().uuidName(uuidImg).name(img.getOriginalFilename()).work(work)
                 .build();
 
-        File uploadFile = new File("/", uuidImg);
+        File uploadFile = new File("/tmp/upload", uuidImg);
 
         try {
             img.transferTo(uploadFile);

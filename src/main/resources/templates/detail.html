@@ -9,15 +9,18 @@
 <h1 th:text="${work.title}">title</h1>
 <h1>designed by</h1>
 <div class="flex" th:each="designer:${work.designerList}">
-    <h1 th:text="${designer.name}">designer</h1>
+    <h1 th:text="${designer.name}">designer_name</h1>
 </div>
 <h1>clients</h1>
 <div th:each="client:${work.clientList}">
-    <h1 th:text="${client.name}">client</h1>
+    <h1 th:text="${client.name}">client_name</h1>
+    <a th:href="|${client.link}|" th:text="${client.link}"></a>
 </div>
 <h1>collaborators</h1>
 <div th:each="collaborator:${work.collaboratorList}">
-    <h1 th:text="${collaborator.name}">collaborator</h1>
+    <h1 th:text="${collaborator.job}">collaborator_job</h1>
+    <h1 th:text="${collaborator.name}">collaborator_name</h1>
+    <a th:href="|${collaborator.link}|" th:text="${collaborator.link}"></a>
 </div>
 
 <h1 class="mt-20" th:text="${work.content}">content</h1>

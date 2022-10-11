@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/portfoliodb?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://portfoliodb.c0smyxxnegwu.ap-northeast-2.rds.amazonaws.com:3306/portfoliodb?serverTimezone=Asia/Seoul
     username: root
-    password: 1234
+    password: ENC(UJqrmKWUZdgWCwLvVg/DF+BE7lRslsa4)
   jpa:
     open-in-view: true
     properties:
@@ -22,6 +22,11 @@ spring:
       max-request-size: 100MB
   web:
     resources:
-      static-locations: file:///c:/Temp/upload
+#      static-locations: file:///c:/Temp/upload
+      static-locations: file:///tmp/upload
   mvc:
     static-path-pattern: /upload/**
+
+jasypt:
+  encryptor:
+    bean: jasyptEncryptor
