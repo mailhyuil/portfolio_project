@@ -3,18 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/css/style.css?asdsfsfdfff">
+    <link rel="stylesheet" href="/css/style.css?asdfdssffsf">
 </head>
-<body>
+<body class="mx-12 my-10">
 <header class="flex">
-    <h1 class="text-blue-500 font-bold text-3xl">SooSan Yoo</h1>
+    <div class="w-1/2">
+        <h1 class="text-slate-700 font-bold text-3xl underline">Soosan Yoo</h1>
+        <p class="italic text-slate-500">Graphic designer, in Gwangju, Republic of Korea</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus asperiores commodi distinctio
+            exercitationem explicabo fugit, impedit labore libero magnam neque odio placeat quam quidem quis
+            reprehenderit tempora totam ullam.</p>
+    </div>
+    <div class="w-1/2">
+        <h1 class="text-slate-700 font-bold text-3xl underline">yousoosan@gmail.com</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab error esse excepturi impedit incidunt nostrum
+            temporibus. Blanditiis distinctio doloremque dolores eum exercitationem magnam quaerat, quis quo ratione,
+            recusandae rem velit!</p>
+    </div>
 </header>
-<main class="flex ">
-    <div class="cursor-pointer" th:each="work:${works}" th:onclick="|location.href='@{/detail}?id=${work.id}'|">
-        <img class="w-80"
-             th:if="${not #lists.isEmpty(work.imageList)}"
-             th:src="|@{/upload/}${work.imageList.get(0).uuidName}|">
-        <h1 th:text="${work.title}">title</h1>
+<main class="mt-12 flex justify-center">
+    <div>
+        <div class="cursor-pointer flex flex-col mx-1" th:each="num:${#numbers.sequence(0,works.size()-1)}"  th:if="${(num+1) % 4 == 1}" th:onclick="|location.href='@{/detail}?id=${works.get(num).id}'|">
+            <img class="w-80"
+                 th:if="${not #lists.isEmpty(works.get(num).imageList)}"
+                 th:src="|@{/upload/}${works.get(num).imageList.get(0).uuidName}|">
+            <h1 th:text="${works.get(num).title}">title</h1>
+        </div>
+    </div>
+    <div>
+        <div class="cursor-pointer flex flex-col mx-1" th:each="num:${#numbers.sequence(0,works.size()-1)}" th:if="${(num+1) % 4 == 2}" th:onclick="|location.href='@{/detail}?id=${works.get(num).id}'|">
+            <img class="w-80"
+                 th:if="${not #lists.isEmpty(works.get(num).imageList)}"
+                 th:src="|@{/upload/}${works.get(num).imageList.get(0).uuidName}|">
+            <h1 th:text="${works.get(num).title}">title</h1>
+        </div>
+    </div>
+    <div>
+        <div class="cursor-pointer flex flex-col mx-1" th:each="num:${#numbers.sequence(0,works.size()-1)}" th:if="${(num+1) % 4 == 3}" th:onclick="|location.href='@{/detail}?id=${works.get(num).id}'|">
+            <img class="w-80"
+                 th:if="${not #lists.isEmpty(works.get(num).imageList)}"
+                 th:src="|@{/upload/}${works.get(num).imageList.get(0).uuidName}|">
+            <h1 th:text="${works.get(num).title}">title</h1>
+        </div>
+    </div>
+    <div>
+        <div class="cursor-pointer flex flex-col mx-1" th:each="num:${#numbers.sequence(0,works.size()-1)}" th:if="${(num+1) % 4 == 0}" th:onclick="|location.href='@{/detail}?id=${works.get(num).id}'|">
+            <img class="w-80"
+                 th:if="${not #lists.isEmpty(works.get(num).imageList)}"
+                 th:src="|@{/upload/}${works.get(num).imageList.get(0).uuidName}|">
+            <h1 th:text="${works.get(num).title}">title</h1>
+        </div>
     </div>
 </main>
 </body>

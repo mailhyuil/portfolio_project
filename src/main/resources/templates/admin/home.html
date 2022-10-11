@@ -23,5 +23,8 @@
     </tbody>
 </table>
 <a th:href="@{/admin/insert}">insert</a>
+<form th:action="@{/logout(${_csrf.parameterName}=${_csrf.token})}" method="post">
+    <button>logout</button>
+</form>
 </body>
 </html>
